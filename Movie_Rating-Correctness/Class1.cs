@@ -2,7 +2,7 @@
 
 namespace Movie_Rating_Correctness
 {
-    public class Class1
+    public class Class1 //test
     {
 
     }
