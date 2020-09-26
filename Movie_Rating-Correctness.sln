@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movie_Rating-Correctness", "Movie_Rating-Correctness\Movie_Rating-Correctness.csproj", "{C483A9CC-4914-401A-B988-0FFFE819CB46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMovie_Rating-Correctness", "TestMovie_Rating-Correctness\TestMovie_Rating-Correctness.csproj", "{35198532-6BC6-4BBB-92EB-C650E8D7EB81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Movie_Rating-Correctness", "TestMovie_Rating-Correctness\Test_Movie_Rating-Correctness.csproj", "{35198532-6BC6-4BBB-92EB-C650E8D7EB81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

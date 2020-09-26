@@ -13,7 +13,7 @@ namespace Movie_Rating_Correctness
         {
             string filePath = System.IO.Path.GetFullPath("ratings.json");
           
-            using (StreamReader sr = new StreamReader(filePath))
+            using (StreamReader sr = File.OpenText(filePath))
             {
                 string json = sr.ReadToEnd();
                 List<BEReview> items = JsonConvert.DeserializeObject<List<BEReview>>(json);
