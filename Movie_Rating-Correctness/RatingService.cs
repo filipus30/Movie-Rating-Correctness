@@ -21,22 +21,23 @@ namespace Movie_Rating_Correctness
 
 
         public List<BEReview> GetAllRatings()
+        
         {
+            var basePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+            var filename = Path.Combine(basePath, "ratings.json");
+            //string text = System.IO.File.ReadAllText(filename);
+            using (StreamReader sr = new StreamReader(@filename))
+            {
+               string json = sr.ReadToEnd();
+               List<BEReview> items = JsonConvert.DeserializeObject<List<BEReview>>(json);
+
+               return items;
+
+            }
 
 
-            //var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //var filename = Path.Combine(documents, "ratings.json");
-            //var text = System.IO.File.ReadAllText(filename);
-            //using (StreamReader sr = new StreamReader(text))
-            //{
-            //    string json = sr.ReadToEnd();
-            //    List<BEReview> items = JsonConvert.DeserializeObject<List<BEReview>>(json);
-
-            //    return items;
-
-            //}
-            List<BEReview> list = new List<BEReview>();
-            return list;
+            //List<BEReview> list = new List<BEReview>();
+            //return list;
 
         }
 

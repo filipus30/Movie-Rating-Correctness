@@ -10,13 +10,16 @@ namespace Test_Movie_Rating_Correctness.Tests
     [TestClass]
     public class TestUnit
     {
-       // [TestMethod]
-       // public void TestGetAllRatings()
-       // {
-           // RatingService rs = new RatingService();
-          //  List<BEReview> actualResult = rs.GetAllRatings();
-          //  Assert.IsTrue(actualResult.Count > 1);
-      //  }
+        [TestMethod]
+        public void TestGetAllRatings()
+        {
+            Mock<IRatingAccess> m = new Mock<IRatingAccess>();
+            RatingService rService = new RatingService(m.Object);
+
+            List<BEReview> actualResult = rService.GetAllRatings();
+            Assert.IsTrue(actualResult.Count > 1);
+
+        }
 
         [TestMethod]
         public void TestGetNumberOfReviewsFromReviewer()
