@@ -16,7 +16,7 @@ namespace Movie_Rating_Correctness
         public RatingService(IRatingAccess ra)
         {
             mratingAccess = ra;
-            allRatings = GetAllRatings();
+          //  allRatings = GetAllRatings();
         }
 
 
@@ -43,13 +43,13 @@ namespace Movie_Rating_Correctness
         public int GetNumberOfReviewsFromReviewer(int reviewer)
         {
 
-          return  allRatings.FindAll(x => x.Reviewer == reviewer).Count;
+          return  mratingAccess.GetAllRatings().FindAll(x => x.Reviewer == reviewer).Count;
 
         }
 
         public double GetAverageRateFromReviewer(int reviewer)
         {
-           var list = allRatings.FindAll(x => x.Reviewer == reviewer);
+           var list = mratingAccess.GetAllRatings().FindAll(x => x.Reviewer == reviewer);
             double sum = 0;
             foreach(BEReview b in list)
             {
@@ -61,7 +61,7 @@ namespace Movie_Rating_Correctness
 
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
-            var list = allRatings.FindAll(x => x.Reviewer == reviewer);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Reviewer == reviewer);
             var list2 = list.FindAll(x => x.Grade == rate);
             return list2.Count;
         }
@@ -69,14 +69,14 @@ namespace Movie_Rating_Correctness
 
         public int GetNumberOfReviews(int movie)
         {
-            var list = allRatings.FindAll(x => x.Movie == movie);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Movie == movie);
             return list.Count;
         }
 
 
         public double GetAverageRateOfMovie(int movie)
         {
-            var list = allRatings.FindAll(x => x.Movie == movie);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Movie == movie);
             double sum = 0;
             foreach (BEReview b in list)
             {
@@ -88,7 +88,7 @@ namespace Movie_Rating_Correctness
 
         public int GetNumberOfRates(int movie, int rate)
         {
-            var list = allRatings.FindAll(x => x.Movie == movie);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Movie == movie);
             var list2 = list.FindAll(x => x.Grade == rate);
             return list2.Count;
         }
@@ -96,7 +96,7 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-           var list = allRatings.OrderBy(x => x.Grade);
+           var list = mratingAccess.GetAllRatings().OrderBy(x => x.Grade);
             var list2 = list.Take(5);
             List<int> idslist = new List<int>();
             foreach(BEReview b in list2)
@@ -108,7 +108,7 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetMostProductiveReviewers()
         {
-            var list = allRatings.OrderBy(x => x.Reviewer);
+            var list = mratingAccess.GetAllRatings().OrderBy(x => x.Reviewer);
             var list2 = list.Take(5);
             List<int> idslist = new List<int>();
             foreach (BEReview b in list2)
@@ -128,7 +128,7 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
-            var list = allRatings.FindAll(x => x.Reviewer == reviewer);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Reviewer == reviewer);
             var list2 = list.OrderBy(x => x.Grade).ThenBy(x => x.Date);
             List<int> list3 = new List<int>();
             foreach(var v in list2)
@@ -141,7 +141,7 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetReviewersByMovie(int movie)
         {
-            var list = allRatings.FindAll(x => x.Movie == movie);
+            var list = mratingAccess.GetAllRatings().FindAll(x => x.Movie == movie);
             var list2 = list.OrderBy(x => x.Grade).ThenBy(x => x.Date);
             List<int> list3 = new List<int>();
             foreach (var v in list2)
