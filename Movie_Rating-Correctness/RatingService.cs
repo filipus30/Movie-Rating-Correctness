@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -122,8 +123,36 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetTopRatedMovies(int amount)
         {
+            var list = mratingAccess.GetAllRatings();
+            var themovies = new List<int>();
+            foreach (var review in list)
+            {
+                var movie = review.Movie;
+                if(!themovies.Contains(movie))
+                {
+                    themovies.Add(movie);
+                }
+            }
+            var sortedList = new SortedList<double, int>();
+            for (int i = 0; i < themovies.Count; i++)
+            {
+                var movieID = themovies[i];
+                var rate = GetAverageRateOfMovie(movieID);
+                
+                sortedList.Add(rate, movieID);
+            }
 
-            throw new Exception("not implemented");
+            List<int> c = sortedList.Values.ToList();
+            List<int> theList = new List<int>();
+            for (int i = 0; i < amount; i++)
+            {
+                
+                theList.Add(c[i]);
+            }
+
+            return theList;
+
+            //throw new Exception("not implemented");
         }
 
 
