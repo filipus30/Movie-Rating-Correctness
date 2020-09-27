@@ -98,7 +98,7 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-           var list = mratingAccess.GetAllRatings().OrderBy(x => x.Grade);
+           var list = mratingAccess.GetAllRatings().OrderByDescending(x => x.Grade);
             var list2 = list.Take(5);
             List<int> idslist = new List<int>();
             foreach(BEReview b in list2)
@@ -110,15 +110,24 @@ namespace Movie_Rating_Correctness
 
         public List<int> GetMostProductiveReviewers()
         {
-            var list = mratingAccess.GetAllRatings().OrderBy(x => x.Reviewer);
-            var list2 = list.Take(5);
-            List<int> idslist = new List<int>();
-            foreach (BEReview b in list2)
+            var list = mratingAccess.GetAllRatings();
+            SortedList<int,int> list2 = new SortedList<int,int>();
+            foreach (BEReview b in list)
             {
-                idslist.Add(b.Movie);
+                if (!list2.ContainsKey(b.Reviewer))
+                {
+                    int d = GetNumberOfReviewsFromReviewer(b.Reviewer);
+                    list2.Add(b.Reviewer, d);
+                }
+            }
+           
+            var list3 = list2.OrderByDescending(x => x.Value).ToList();
+            List<int> idslist = new List<int>();
+            foreach(var v in list3)
+            {
+                idslist.Add(v.Key);
             }
             return idslist;
-
         }
 
         public List<int> GetTopRatedMovies(int amount)
@@ -159,7 +168,7 @@ namespace Movie_Rating_Correctness
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
             var list = mratingAccess.GetAllRatings().FindAll(x => x.Reviewer == reviewer);
-            var list2 = list.OrderBy(x => x.Grade).ThenBy(x => x.Date);
+            var list2 = list.OrderByDescending(x => x.Grade).ThenByDescending(x => x.Date);
             List<int> list3 = new List<int>();
             foreach(var v in list2)
             {
@@ -172,7 +181,7 @@ namespace Movie_Rating_Correctness
         public List<int> GetReviewersByMovie(int movie)
         {
             var list = mratingAccess.GetAllRatings().FindAll(x => x.Movie == movie);
-            var list2 = list.OrderBy(x => x.Grade).ThenBy(x => x.Date);
+            var list2 = list.OrderByDescending(x => x.Grade).ThenByDescending(x => x.Date);
             List<int> list3 = new List<int>();
             foreach (var v in list2)
             {
