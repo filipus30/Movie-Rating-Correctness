@@ -207,9 +207,6 @@ namespace Test_Movie_Rating_Correctness.Tests
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
             List<int> actualResult = rService.GetTopRatedMovies(3);
-           Console.WriteLine(actualResult[0]);
-           Console.WriteLine(actualResult[1]);
-           Console.WriteLine(actualResult[2]);
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[3].Movie);
             Assert.IsTrue(actualResult[1] == returnValue[2].Movie);
