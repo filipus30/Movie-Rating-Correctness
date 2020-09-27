@@ -147,18 +147,19 @@ namespace Movie_Rating_Correctness
             {
                 var movieID = themovies[i];
                 var rate = GetAverageRateOfMovie(movieID);
-                
+                Console.WriteLine(rate);
                 sortedList.Add(rate, movieID);
             }
 
             List<int> c = sortedList.Values.ToList();
+            c.Reverse();
             List<int> theList = new List<int>();
             for (int i = 0; i < amount; i++)
             {
                 
                 theList.Add(c[i]);
             }
-
+            
             return theList;
 
             //throw new Exception("not implemented");

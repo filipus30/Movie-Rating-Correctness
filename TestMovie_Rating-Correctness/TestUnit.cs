@@ -196,7 +196,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             List<BEReview> returnValue = new List<BEReview>
             {
-                new BEReview { Movie = 123, Grade = 7, Reviewer = 20, Date = "06-06-2009"},
+                new BEReview { Movie = 123, Grade = 4, Reviewer = 20, Date = "06-06-2009"},
                 new BEReview { Movie = 124, Grade = 3, Reviewer = 54, Date = "08-06-2009"},
                 new BEReview { Movie = 120, Grade = 8, Reviewer = 52, Date = "09-07-2000"},
                 new BEReview { Movie = 129, Grade = 9, Reviewer = 54, Date = "09-07-2000"},
@@ -213,7 +213,7 @@ namespace Test_Movie_Rating_Correctness.Tests
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[3].Movie);
             Assert.IsTrue(actualResult[1] == returnValue[2].Movie);
-            Assert.IsTrue(actualResult[2] == returnValue[0].Movie);
+            Assert.IsTrue(actualResult[2] == returnValue[4].Movie);
         }
 
         [TestMethod]
