@@ -20,6 +20,8 @@ namespace Movie_Rating_Correctness
           //  allRatings = GetAllRatings();
         }
 
+    
+      
 
         public List<BEReview> GetAllRatings()
         
@@ -31,12 +33,11 @@ namespace Movie_Rating_Correctness
             {
                string json = sr.ReadToEnd();
                List<BEReview> items = JsonConvert.DeserializeObject<List<BEReview>>(json);
-
                return items;
 
             }
-
-
+          
+          
             //List<BEReview> list = new List<BEReview>();
             //return list;
 
@@ -120,7 +121,8 @@ namespace Movie_Rating_Correctness
                     list2.Add(b.Reviewer, d);
                 }
             }
-           
+
+            
             var list3 = list2.OrderByDescending(x => x.Value).ToList();
             List<int> idslist = new List<int>();
             foreach(var v in list3)

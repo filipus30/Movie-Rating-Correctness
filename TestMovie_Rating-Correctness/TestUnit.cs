@@ -10,16 +10,17 @@ namespace Test_Movie_Rating_Correctness.Tests
     [TestClass]
     public class TestUnit
     {
-        //[TestMethod]
-        //public void TestGetAllRatings()
-        //{
-        //    Mock<IRatingAccess> m = new Mock<IRatingAccess>();
-        //    RatingService rService = new RatingService(m.Object);
+        [TestMethod]
+        public void TestGetAllRatings()
+        {
+            Mock<IRatingAccess> m = new Mock<IRatingAccess>();
+            RatingService rService = new RatingService(m.Object);
 
-        //    List<BEReview> actualResult = rService.GetAllRatings();
-        //    Assert.IsTrue(actualResult.Count > 1);
+            List<BEReview> actualResult = rService.GetAllRatings();
+            Console.WriteLine(actualResult.Count);
+            Assert.IsTrue(actualResult.Count > 1);
 
-        //}
+        }
 
         [TestMethod]
         public void TestGetNumberOfReviewsFromReviewer()
@@ -29,11 +30,11 @@ namespace Test_Movie_Rating_Correctness.Tests
             List<BEReview> returnValue = new List<BEReview>{ new BEReview { Movie = 123, Grade = 7, Reviewer = 20, Date = "06-06-2009" },
                                        new BEReview { Movie = 120, Grade = 3, Reviewer = 50, Date = "08-06-2009"  } };
 
-            m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
+           m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
-           int actualResult = rService.GetNumberOfReviewsFromReviewer(20);
+         //   m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
+            int actualResult = rService.GetNumberOfReviewsFromReviewer(20);
             m.Verify(m => m.GetAllRatings(), Times.Once);
-           Console.WriteLine(returnValue[0].Reviewer);
             Assert.IsTrue(actualResult == 1);
          
         }
@@ -54,6 +55,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             double actualResult = rService.GetAverageRateFromReviewer(50);
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult == 5);
@@ -73,6 +75,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             double actualResult = rService.GetNumberOfRatesByReviewer(50, 7);
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult == 2);
@@ -93,6 +96,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             double actualResult = rService.GetNumberOfReviews(120);
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult == 2);
@@ -112,6 +116,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             double actualResult = rService.GetAverageRateOfMovie(120);
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult == 5);
@@ -131,6 +136,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             double actualResult = rService.GetNumberOfRates(120,7);
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult == 1);
@@ -154,6 +160,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             List<int> actualResult = rService.GetMoviesWithHighestNumberOfTopRates();
             m.Verify(m => m.GetAllRatings(), Times.Once);
             Assert.IsTrue(actualResult.Count == 5);
@@ -182,7 +189,10 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+             // m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
+
             List<int> actualResult = rService.GetMostProductiveReviewers();
+
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[2].Reviewer);
             Assert.IsTrue(actualResult[1] == returnValue[1].Reviewer);
@@ -206,6 +216,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+          //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             List<int> actualResult = rService.GetTopRatedMovies(3);
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[3].Movie);
@@ -230,6 +241,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+            //  m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             List<int> actualResult = rService.GetTopMoviesByReviewer(52);
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[2].Movie);
@@ -257,6 +269,7 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
+           // m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             List<int> actualResult = rService.GetReviewersByMovie(120);
             Assert.IsTrue(actualResult.Count == 2);
             Assert.IsTrue(actualResult[0] == returnValue[3].Movie);
