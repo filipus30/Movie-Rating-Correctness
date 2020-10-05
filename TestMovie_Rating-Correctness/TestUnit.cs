@@ -10,17 +10,9 @@ namespace Test_Movie_Rating_Correctness.Tests
     [TestClass]
     public class TestUnit
     {
-        [TestMethod]
-        public void TestGetAllRatings()
-        {
-            Mock<IRatingAccess> m = new Mock<IRatingAccess>();
-            RatingService rService = new RatingService(m.Object);
-
-            List<BEReview> actualResult = rService.GetAllRatings();
-            Console.WriteLine(actualResult.Count);
-            Assert.IsTrue(actualResult.Count > 1);
-
-        }
+        
+       
+        
 
         [TestMethod]
         public void TestGetNumberOfReviewsFromReviewer()
@@ -32,9 +24,9 @@ namespace Test_Movie_Rating_Correctness.Tests
 
            m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
-         //   m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
+           //m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
             int actualResult = rService.GetNumberOfReviewsFromReviewer(20);
-            m.Verify(m => m.GetAllRatings(), Times.Once);
+            Console.WriteLine(actualResult);
             Assert.IsTrue(actualResult == 1);
          
         }
@@ -179,12 +171,12 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             List<BEReview> returnValue = new List<BEReview>
             {
-                new BEReview { Movie = 123, Grade = 7, Reviewer = 20, Date = "06-06-2009"},
+                new BEReview { Movie = 123, Grade = 7, Reviewer = 60, Date = "06-06-2009"},
                 new BEReview { Movie = 124, Grade = 3, Reviewer = 54, Date = "08-06-2009"},
                 new BEReview { Movie = 120, Grade = 8, Reviewer = 52, Date = "09-07-2000"},
                 new BEReview { Movie = 129, Grade = 9, Reviewer = 54, Date = "09-07-2000"},
                 new BEReview { Movie = 125, Grade = 6, Reviewer = 52, Date = "09-07-2000"},
-                new BEReview { Movie = 120, Grade = 5, Reviewer = 52, Date = "09-07-2000"}
+                new BEReview { Movie = 120, Grade = 5, Reviewer = 54, Date = "09-07-2000"}
             };
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
@@ -192,10 +184,13 @@ namespace Test_Movie_Rating_Correctness.Tests
              // m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
 
             List<int> actualResult = rService.GetMostProductiveReviewers();
+            Console.WriteLine("ASASASAS" + actualResult[0]);
+            Console.WriteLine("ASASASAS" + actualResult[1]);
+
 
             Assert.IsTrue(actualResult.Count == 3);
-            Assert.IsTrue(actualResult[0] == returnValue[2].Reviewer);
-            Assert.IsTrue(actualResult[1] == returnValue[1].Reviewer);
+            Assert.IsTrue(actualResult[0] == returnValue[1].Reviewer);
+            Assert.IsTrue(actualResult[1] == returnValue[2].Reviewer);
             Assert.IsTrue(actualResult[2] == returnValue[0].Reviewer);
 
         }

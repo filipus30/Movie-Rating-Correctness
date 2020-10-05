@@ -10,38 +10,18 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Movie_Rating_Correctness
 {
-    public class RatingService : IRatingAccess
+    public class RatingService
     {
         List<BEReview> allRatings = new List<BEReview>();
         IRatingAccess mratingAccess;
         public RatingService(IRatingAccess ra)
         {
-            mratingAccess = ra;
-          //  allRatings = GetAllRatings();
+            mratingAccess = ra;           
         }
-
-    
       
+   
 
-        public List<BEReview> GetAllRatings()
         
-        {
-            var basePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
-            var filename = Path.Combine(basePath, "ratings.json");
-            //string text = System.IO.File.ReadAllText(filename);
-            using (StreamReader sr = new StreamReader(@filename))
-            {
-               string json = sr.ReadToEnd();
-               List<BEReview> items = JsonConvert.DeserializeObject<List<BEReview>>(json);
-               return items;
-
-            }
-          
-          
-            //List<BEReview> list = new List<BEReview>();
-            //return list;
-
-        }
 
         public int GetNumberOfReviewsFromReviewer(int reviewer)
         {
@@ -110,61 +90,34 @@ namespace Movie_Rating_Correctness
         }
 
         public List<int> GetMostProductiveReviewers()
-        {
-            var list = mratingAccess.GetAllRatings();
-            SortedList<int,int> list2 = new SortedList<int,int>();
-            foreach (BEReview b in list)
-            {
-                if (!list2.ContainsKey(b.Reviewer))
-                {
-                    int d = GetNumberOfReviewsFromReviewer(b.Reviewer);
-                    list2.Add(b.Reviewer, d);
-                }
-            }
 
-            
-            var list3 = list2.OrderByDescending(x => x.Value).ToList();
-            List<int> idslist = new List<int>();
-            foreach(var v in list3)
-            {
-                idslist.Add(v.Key);
-            }
-            return idslist;
+        { 
+
+            var list = mratingAccess.GetAllRatings();
+            var list2 = list.GroupBy(g => g.Reviewer)
+                .OrderByDescending(group => group.Count())
+                .SelectMany(g => g);
+            var list3 = list2.Select(r => r.Reviewer).Distinct().ToList();
+            return list3;
         }
 
         public List<int> GetTopRatedMovies(int amount)
         {
             var list = mratingAccess.GetAllRatings();
-            var themovies = new List<int>();
-            foreach (var review in list)
-            {
-                var movie = review.Movie;
-                if(!themovies.Contains(movie))
-                {
-                    themovies.Add(movie);
-                }
-            }
-            var sortedList = new SortedList<double, int>();
-            for (int i = 0; i < themovies.Count; i++)
-            {
-                var movieID = themovies[i];
-                var rate = GetAverageRateOfMovie(movieID);
-                Console.WriteLine(rate);
-                sortedList.Add(rate, movieID);
-            }
+            var list2 = from r in list
+                        group r by r.Movie into playerGroup
+                        select new
+                        {
+                            Movie = playerGroup.Key,
+                            Grade = playerGroup.Average(x => x.Grade),
+                        };
+            var list3 = list2.OrderByDescending(x => x.Grade)
+                .Take(amount)
+                .Select(m => m.Movie)
+                .Distinct()
+                .ToList();
 
-            List<int> c = sortedList.Values.ToList();
-            c.Reverse();
-            List<int> theList = new List<int>();
-            for (int i = 0; i < amount; i++)
-            {
-                
-                theList.Add(c[i]);
-            }
-            
-            return theList;
-
-            //throw new Exception("not implemented");
+            return list3;
         }
 
 
