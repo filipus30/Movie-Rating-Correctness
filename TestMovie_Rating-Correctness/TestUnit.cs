@@ -181,12 +181,9 @@ namespace Test_Movie_Rating_Correctness.Tests
 
             m.Setup(m => m.GetAllRatings()).Returns(() => returnValue);
             RatingService rService = new RatingService(m.Object);
-             // m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
+            // m.Setup(m => m.GetAllRatings()).Returns(() => rService.GetAllRatings());
 
             List<int> actualResult = rService.GetMostProductiveReviewers();
-            Console.WriteLine("ASASASAS" + actualResult[0]);
-            Console.WriteLine("ASASASAS" + actualResult[1]);
-
 
             Assert.IsTrue(actualResult.Count == 3);
             Assert.IsTrue(actualResult[0] == returnValue[1].Reviewer);

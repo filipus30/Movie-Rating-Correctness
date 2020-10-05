@@ -104,20 +104,32 @@ namespace Movie_Rating_Correctness
         public List<int> GetTopRatedMovies(int amount)
         {
             var list = mratingAccess.GetAllRatings();
-            var list2 = from r in list
-                        group r by r.Movie into playerGroup
-                        select new
-                        {
-                            Movie = playerGroup.Key,
-                            Grade = playerGroup.Average(x => x.Grade),
-                        };
-            var list3 = list2.OrderByDescending(x => x.Grade)
+            //var list2 = from r in list
+            //            group r by r.Movie into playerGroup
+            //            select new
+            //            {
+            //                Movie = playerGroup.Key,
+            //                Grade = playerGroup.Average(x => x.Grade),
+            //            };
+
+            //var list3 = list2.OrderByDescending(x => x.Grade)
+            //    .Take(amount)
+            //    .Select(m => m.Movie)
+            //    .Distinct()
+            //    .ToList();
+
+            var list4 = list.GroupBy(g => g.Movie)
+                .OrderByDescending(g => g.Average(g => g.Grade))
                 .Take(amount)
-                .Select(m => m.Movie)
+                .Select(m => m.First().Movie)
                 .Distinct()
                 .ToList();
+               
+            
 
-            return list3;
+
+
+            return list4;
         }
 
 
