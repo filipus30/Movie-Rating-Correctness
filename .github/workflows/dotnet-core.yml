@@ -22,9 +22,9 @@ jobs:
         dotnet-version: 3.1.301
         
     - name: Install Dependencies
-      run: npm install
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test 
