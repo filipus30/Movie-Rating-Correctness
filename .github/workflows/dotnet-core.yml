@@ -9,13 +9,12 @@ on:
 jobs:
   build:
 
-runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
+   runs-on: ${{ matrix.os }}
+   strategy:
+     matrix:
           os: [ubuntu-latest, windows-latest, macOS-latest]
 
-
-    steps:
+   steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
